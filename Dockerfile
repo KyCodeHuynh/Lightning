@@ -23,6 +23,9 @@ COPY . /opt/lightning-webserver
 
 RUN make clean && make
 
+# Disable setuid rights to prevent privilege escalation
+RUN find / -perm +6000 -type f -exec chmod a-s {} \; \ || true
+
 # Output tarballed lightning binary to stdout when
 # a container based on this image is run
 CMD ["tar", "-cf", "-", "lightning"]

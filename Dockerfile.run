@@ -1,5 +1,9 @@
 FROM busybox:ubuntu-14.04
 
+# Avoid running as root within the container
+RUN groupadd -r user && useradd -r -g user user
+USER user
+
 WORKDIR /opt/lightning-webserver
 # Copy files from deploy/ directory into image's working directory
 COPY . /opt/lightning-webserver
