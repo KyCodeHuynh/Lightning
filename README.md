@@ -3,7 +3,7 @@
 ![](https://travis-ci.com/UCLA-CS130/Mr.-Robot-et-al..svg?token=yz9yBJgd4Sxya2e1weD1&branch=master)
 
 :zap: Lightning is a modern, robust web server written in C++.
-This repository continues to develop atop its [original incarnation](https://github.com/UCLA-CS130/Mr.-Robot-et-al.).
+This repository continues development upon its [original version](https://github.com/UCLA-CS130/Mr.-Robot-et-al.).
 
 
 ## Supported systems
