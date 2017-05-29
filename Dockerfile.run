@@ -1,5 +1,8 @@
 FROM busybox:ubuntu-14.04
 
+# Disable setuid rights to prevent privilege escalation
+RUN find / -perm +6000 -type f -exec chmod a-s {} \; \ || true
+
 WORKDIR /opt/lightning-webserver
 # Copy files from deploy/ directory into image's working directory
 COPY . /opt/lightning-webserver

@@ -57,7 +57,7 @@ local_deploy: Dockerfile.run lightning.tar
 	# See: https://stackoverflow.com/questions/1789594/how-do-i-write-the-cd-command-in-a-makefile
 	cd deploy; \
 	docker build -f Dockerfile.run -t lightning.deploy .; \
-	docker run --rm -t -p 8080:8080 lightning.deploy
+	docker run --rm --read-only -t -p 8080:8080 lightning.deploy
 
 # Deploy Lightning binary to AWS
 deploy: Dockerfile.run lightning.tar
@@ -77,7 +77,7 @@ deploy: Dockerfile.run lightning.tar
 	cd deploy; \
 	docker build -f Dockerfile.run -t lightning.deploy .; \
 	sudo docker save lightning.deploy | bzip2 | ssh -i "../assignment-8-cs130-t2-small.pem" ubuntu@ec2-54-242-5-206.compute-1.amazonaws.com 'bunzip2 | sudo docker load && exit'; \
-	ssh -i "../assignment-8-cs130-t2-small.pem" ubuntu@ec2-54-242-5-206.compute-1.amazonaws.com -t 'sudo docker stop $$(sudo docker ps -a -q) && sudo docker run -d -t -p 80:8080 lightning.deploy; exit'
+	ssh -i "../assignment-8-cs130-t2-small.pem" ubuntu@ec2-54-242-5-206.compute-1.amazonaws.com -t 'sudo docker stop $$(sudo docker ps -a -q) && sudo docker run -d --read-only -t -p 80:8080 lightning.deploy; exit'
 
 $(TARGET): $(SRC)
 	$(CXX) $(SRC_FLAGS) $(SRC) $(LDFLAGS) -o $(TARGET)
